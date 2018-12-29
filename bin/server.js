@@ -97,7 +97,7 @@ const main = async () => {
       }
       if (action === 'put') {
         const { body, title } = html2text(html)
-        debug('Putting', id, body)
+        debug(`Putting id='${id}', title=${title}, body=${body}`)
         const pub = true
         await search.put(id, title, body, pub)
       } else {
