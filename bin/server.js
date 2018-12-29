@@ -37,7 +37,7 @@ const publicFilesDirs = process.env.PUBLIC_FILES_DIRS ? process.env.PUBLIC_FILES
 const publicURLPath = process.env.PUBLIC_URL_PATH || scriptName + '/public'
 const searchTitle = process.env.SEARCH_TITLE || 'Search'
 const apiToken = process.env.API_TOKEN
-if (typeof apiToken === "undefined") {
+if (typeof apiToken === 'undefined') {
   throw new Error('No API_TOKEN environment variable set to specify the value that will be accepted for an Authorization header to the /index endpoint')
 }
 const main = async () => {
@@ -84,7 +84,12 @@ const main = async () => {
         return
       }
       debug(req.body)
-      const { id, action, html } = req.body
+      let { id, action, pub = false, html } = req.body
+      if (pub === true) {
+        pub = 1
+      } else {
+        pub = 0
+      }
       if (action !== 'put' && action !== 'remove') {
         const msg = 'Invalid action: ' + action
         debug(msg)
@@ -97,8 +102,7 @@ const main = async () => {
       }
       if (action === 'put') {
         const { body, title } = html2text(html)
-        debug(`Putting id='${id}', title=${title}, body=${body}`)
-        const pub = true
+        debug(`Putting id='${id}', title=${title}, pub=${pub}, body=${body}`)
         await search.put(id, title, body, pub)
       } else {
         debug('Removing', id)
@@ -120,9 +124,9 @@ const main = async () => {
       if (req.method === 'POST') {
         searchTerm = req.body.search
         if (searchTerm) {
-          const a = await search.search(searchTerm)
+          const a = await search.search(searchTerm, !!req.user)
           for (let result of a) {
-            results.push({ link: result.id, title: result.title, body: result.snippet })
+            results.push({ link: result.id, pub: result.pub, title: result.title || '(no title)', body: result.snippet || '(no description)' })
           }
           debug(results)
         }

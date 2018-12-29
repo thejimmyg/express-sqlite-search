@@ -1,11 +1,11 @@
 {
   "name": "express-sqlite-search",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple express web seach engine backed by SQLite FTS5",
   "main": "lib/index.js",
   "scripts": {
-    "docker:build": "docker build . -t thejimmyg/express-sqlite-search:0.1.0",
-    "docker:push": "docker push thejimmyg/express-sqlite-search:0.1.0",
+    "docker:build": "docker build . -t thejimmyg/express-sqlite-search:0.1.2",
+    "docker:push": "docker push thejimmyg/express-sqlite-search:0.1.2",
     "docker:build:test": "docker build . -t thejimmyg/express-sqlite-search:test",
     "docker:push:test": "docker push thejimmyg/express-sqlite-search:test",
     "docker:run:local": "docker-compose stop && docker-compose pull && docker-compose up --build -d",
@@ -23,7 +23,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "express-mustache-jwt-signin": "^0.3.2",
-    "express-mustache-overlays": "^0.3.2",
+    "express-mustache-overlays": "^0.3.3",
     "htmlparser2": "^3.10.0",
     "mustache": "^3.0.1",
     "sqlite": "^3.0.0"

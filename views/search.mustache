@@ -20,9 +20,11 @@
           <p>No results found.</p>
           {{/haveResults}}
           {{#results}}
-            <strong><a href="{{link}}">{{title}}</a></strong><br>
+          <div>
+            <strong><a href="{{link}}">{{title}}</a> {{^pub}}(private){{/pub}}</strong><br>
             {{{body}}}
             <br><br>
+          </div>
           {{/results}}
         {{/search}}
       </div>

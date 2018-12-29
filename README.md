@@ -124,13 +124,17 @@ npm run fix
 Use the API to index some documents using the same value in the `Authorizaton` header as is set in the `API_TOKEN` environment variable.
 
 ```
-curl -H 'Authorization: 123' --request POST --header "Content-Type: application/json" --data '{"id":"/xyz","action":"put","html":"<title>Title</title><body><some>item one</some></body>"}' http://localhost:8000/index
+curl -H 'Authorization: 123' --request POST --header "Content-Type: application/json" --data '{"id":"/xyz","action":"put","pub":true,"html":"<title>Title</title><body><article>item one</article></body>"}' http://localhost:8000/index
 curl --request POST --data 'search=item' http://localhost:8000/
 curl -H 'Authorization: 123'  --request POST --header "Content-Type: application/json" --data '{"id":"/xyz","action":"remove"}' http://localhost:8000/index
 curl --request POST --data 'search=item' http://localhost:8000/
 ```
 
 ## Changelog
+
+### 0.1.2 2018-12-29
+
+* Differentiate between public and private pages
 
 ### 0.1.1 2018-12-29
 
