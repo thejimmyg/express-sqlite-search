@@ -12,7 +12,7 @@ You configure the container by setting environment variables:
 * `DB_DIR` - The directory containing the markdown files
 * `MUSTACHE_DIRS` - A `:` separated list of paths the system should look for mustache templates before using its default ones.
 * `DISABLE_AUTH` - Defaults to `false` but can be `true` to make file uploading and downloading work without requiring sign in. Only recommended for development.
-* `DISABLED_AUTH_USER` - `{"admin": true, "username": "disableduser"}`
+* `DISABLED_AUTH_USER` - If `DISABLE_AUTH` is set to `true`, set this to be the JSON-encoded representation of the auth user you want the server to assume is signed in. e.g. `'{"admin": true, "username": "disableduser"}'`. Only recommended for development.
 * `SCRIPT_NAME` - The base URL at which the app is hosted. Defaults to `""` and must not end with `/`. Usually this is set to something like `/upload`
 * `DEBUG` - The loggers you want to see log output for. e.g. `express-sqlite-search,express-mustache-jwt-signin`.
 * `PORT` - The port you would like the app to run on. Defaults to 80.
@@ -131,6 +131,11 @@ curl --request POST --data 'search=item' http://localhost:8000/
 ```
 
 ## Changelog
+
+### 0.1.3 2019-01-02
+
+* Handling SIGTERM
+* Tweaked `DISABLED_AUTH_USER` description in `README.md`
 
 ### 0.1.2 2018-12-29
 

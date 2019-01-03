@@ -147,8 +147,13 @@ const main = async () => {
 
 main()
 
-// Better handling of SIGNIN for docker
+// Better handling of SIGINT and SIGTERM for docker
 process.on('SIGINT', function () {
-  console.log('Exiting ...')
+  console.log('Received SIGINT. Exiting ...')
+  process.exit()
+})
+
+process.on('SIGTERM', function () {
+  console.log('Received SIGTERM. Exiting ...')
   process.exit()
 })
