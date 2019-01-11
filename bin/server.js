@@ -36,9 +36,9 @@ const mustacheDirs = process.env.MUSTACHE_DIRS ? process.env.MUSTACHE_DIRS.split
 const publicFilesDirs = process.env.PUBLIC_FILES_DIRS ? process.env.PUBLIC_FILES_DIRS.split(':') : []
 const publicURLPath = process.env.PUBLIC_URL_PATH || scriptName + '/public'
 const searchTitle = process.env.SEARCH_TITLE || 'Search'
-const apiToken = process.env.API_TOKEN
-if (typeof apiToken === 'undefined') {
-  throw new Error('No API_TOKEN environment variable set to specify the value that will be accepted for an Authorization header to the /index endpoint')
+const searchAuthorization = process.env.SEARCH_AUTHORIZATION
+if (typeof searchAuthorization === 'undefined') {
+  throw new Error('No SEARCH_AUTHORIZATION environment variable set to specify the value that will be accepted for an Authorization header to the /index endpoint')
 }
 const main = async () => {
   const search = await connect(path.join(dbDir, 'search.db'))
@@ -78,7 +78,7 @@ const main = async () => {
 
   app.post(scriptName + '/index', async (req, res, next) => {
     try {
-      if (apiToken && req.get('Authorization') !== apiToken) {
+      if (searchAuthorization && req.get('Authorization') !== searchAuthorization) {
         // res.render('403', { } )
         res.status(403).json({ error: '403 Forbidden' })
         return

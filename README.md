@@ -7,7 +7,7 @@ outside the development team yet.**
 
 You configure the container by setting environment variables:
 
-* `API_TOKEN` - A token which will be checked in the `Authorization` header for `POST` requests to `/index`
+* `SEARCH_AUTHORIZATION` - A token which will be checked in the `Authorization` header for `POST` requests to `/index`
 * `SEARCH_TITLE` - The title of the search page, defaults to `Search`
 * `DB_DIR` - The directory containing the markdown files
 * `MUSTACHE_DIRS` - A `:` separated list of paths the system should look for mustache templates before using its default ones.
@@ -93,7 +93,7 @@ npm run docker:stop:local
 
 ```
 npm install
-PORT=8000 DEBUG=express-mustache-jwt-signin,express-mustache-overlays,express-sqlite-search SECRET=reallysecret DISABLE_AUTH=true DISABLED_AUTH_USER='{"admin": true, "username": "disableduser"}' DB_DIR=db MUSTACHE_DIRS=./views-search API_TOKEN=123 npm start
+PORT=8000 DEBUG=express-mustache-jwt-signin,express-mustache-overlays,express-sqlite-search SECRET=reallysecret DISABLE_AUTH=true DISABLED_AUTH_USER='{"admin": true, "username": "disableduser"}' DB_DIR=db MUSTACHE_DIRS=./views-search SEARCH_AUTHORIZATION=123 npm start
 ```
 
 Visit http://localhost:8000.
@@ -121,7 +121,7 @@ a 404 page.
 npm run fix
 ```
 
-Use the API to index some documents using the same value in the `Authorizaton` header as is set in the `API_TOKEN` environment variable.
+Use the API to index some documents using the same value in the `Authorizaton` header as is set in the `SEARCH_AUTHORIZATION` environment variable.
 
 ```
 curl -H 'Authorization: 123' --request POST --header "Content-Type: application/json" --data '{"id":"/xyz","action":"put","pub":true,"html":"<title>Title</title><body><article>item one</article></body>"}' http://localhost:8000/index
@@ -131,6 +131,10 @@ curl --request POST --data 'search=item' http://localhost:8000/
 ```
 
 ## Changelog
+
+### 0.1.4 2019-01-11
+
+* Renamed `API_TOKEN` to `SEARCH_AUTHORIZATION` so that it is easier to share config when using docker compose
 
 ### 0.1.3 2019-01-02
 
